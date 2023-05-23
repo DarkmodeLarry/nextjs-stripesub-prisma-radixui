@@ -12,6 +12,7 @@
     "turbo": "next dev --turbo",
     "start": "next start",
     "lint": "next lint",
+    "stripe": "stripe listen --forward-to localhost:3000/webhook",
     "preview": "next build && next start",
     "postinstall": "prisma generate"
   },
@@ -79,6 +80,7 @@
     "react-dom": "^18.2.0",
     "react-editor-js": "^2.1.0",
     "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
     "react-textarea-autosize": "^8.4.1",
     "sharp": "^0.31.3",
     "shiki": "^0.11.1",

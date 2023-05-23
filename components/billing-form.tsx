@@ -1,20 +1,20 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import * as React from 'react'
 
-import { UserSubscriptionPlan } from "types"
-import { cn, formatDate } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { UserSubscriptionPlan } from 'types'
+import { cn, formatDate } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { toast } from "@/components/ui/use-toast"
-import { Icons } from "@/components/icons"
+  CardTitle
+} from '@/components/ui/card'
+import { toast } from '@/components/ui/use-toast'
+import { Icons } from '@/components/icons'
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
   subscriptionPlan: UserSubscriptionPlan & {
@@ -22,11 +22,7 @@ interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
   }
 }
 
-export function BillingForm({
-  subscriptionPlan,
-  className,
-  ...props
-}: BillingFormProps) {
+export function BillingForm({ subscriptionPlan, className, ...props }: BillingFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
   async function onSubmit(event) {
@@ -34,13 +30,13 @@ export function BillingForm({
     setIsLoading(!isLoading)
 
     // Get a Stripe session URL.
-    const response = await fetch("/api/users/stripe")
+    const response = await fetch('/api/users/stripe')
 
     if (!response?.ok) {
       return toast({
-        title: "Something went wrong.",
-        description: "Please refresh the page and try again.",
-        variant: "destructive",
+        title: 'Something went wrong.',
+        description: 'Please refresh the page and try again.',
+        variant: 'destructive'
       })
     }
 
@@ -59,27 +55,20 @@ export function BillingForm({
         <CardHeader>
           <CardTitle>Subscription Plan</CardTitle>
           <CardDescription>
-            You are currently on the <strong>{subscriptionPlan.name}</strong>{" "}
-            plan.
+            You are currently on the <strong>{subscriptionPlan.name}</strong> plan.
           </CardDescription>
         </CardHeader>
         <CardContent>{subscriptionPlan.description}</CardContent>
-        <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
-          <button
-            type="submit"
-            className={cn(buttonVariants())}
-            disabled={isLoading}
-          >
-            {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            {subscriptionPlan.isPro ? "Manage Subscription" : "Upgrade to PRO"}
+        <CardFooter className='flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0'>
+          <button type='submit' className={cn(buttonVariants())} disabled={isLoading}>
+            {isLoading && <Icons.spinner className='w-4 h-4 mr-2 animate-spin' />}
+            {subscriptionPlan.isPro ? 'Manage Subscription' : 'Upgrade to PRO'}
           </button>
           {subscriptionPlan.isPro ? (
-            <p className="rounded-full text-xs font-medium">
+            <p className='text-xs font-medium rounded-full'>
               {subscriptionPlan.isCanceled
-                ? "Your plan will be canceled on "
-                : "Your plan renews on "}
+                ? 'Your plan will be canceled on '
+                : 'Your plan renews on '}
               {formatDate(subscriptionPlan.stripeCurrentPeriodEnd)}.
             </p>
           ) : null}
