@@ -1,59 +1,63 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { User } from "next-auth"
-import { signOut } from "next-auth/react"
+import Link from 'next/link'
+import { User } from 'next-auth'
+import { signOut } from 'next-auth/react'
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { UserAvatar } from "@/components/user-avatar"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { UserAvatar } from '@/components/user-avatar'
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "image" | "email">
+  user: Pick<User, 'name' | 'image' | 'email'>
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <UserAvatar
-          user={{ name: user.name || null, image: user.image || null }}
-          className="h-8 w-8"
-        />
+        <div className='flex items-center justify-center gap-2 p-2 border rounded shadow-sm shadow-gray-600'>
+          <UserAvatar
+            user={{ name: user.name || null, image: user.image || null }}
+            className='w-8 h-8'
+          />
+          <p className='font-semibold text-center'>{user.name}</p>
+        </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <div className="flex items-center justify-start gap-2 p-2">
-          <div className="flex flex-col space-y-1 leading-none">
-            {user.name && <p className="font-medium">{user.name}</p>}
+      <DropdownMenuContent align='end'>
+        <div className='flex items-center justify-start gap-2 p-2'>
+          <div className='flex flex-col space-y-1 leading-none'>
+            {user.name && <p className='font-medium'>{user.name}</p>}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-muted-foreground">
-                {user.email}
-              </p>
+              <p className='w-[200px] truncate text-sm text-muted-foreground'>{user.email}</p>
             )}
           </div>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href='/dashboard'>Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/billing">Billing</Link>
+          <Link href='/dashboard/billing'>Billing</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings">Settings</Link>
+          <Link href='/dashboard/settings'>Settings</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href='/dashboard/trainingmenu'>Training Menu</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer"
+          className='cursor-pointer'
           onSelect={(event) => {
             event.preventDefault()
             signOut({
-              callbackUrl: `${window.location.origin}/login`,
+              callbackUrl: `${window.location.origin}/login`
             })
           }}
         >

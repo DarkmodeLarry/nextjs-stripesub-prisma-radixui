@@ -1,8 +1,8 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-
+import { stripe } from './stripe'
 import { env } from '@/env.mjs'
 import { siteConfig } from '@/config/site'
 import { db } from '@/lib/db'
@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
   // This is a temporary fix for prisma client.
   // @see https://github.com/prisma/prisma/issues/16117
   adapter: PrismaAdapter(db as any),
+  secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt'
   },
@@ -28,6 +29,23 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GITHUB_CLIENT_SECRET
     })
   ],
+  events: {
+    createUser: async ({ user }) => {
+      // create a stripe customer
+      if (user.name && user.email) {
+        const customer = await stripe.customers.create({
+          email: user.email || undefined,
+          name: user.name || undefined
+        })
+        // update the user with the stripe customer id
+        await db.user.update({
+          where: { id: user.id },
+          data: { stripeCustomerId: customer.id }
+        })
+      }
+    }
+  },
+
   callbacks: {
     async session({ token, session }) {
       if (token) {
@@ -36,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email
         session.user.image = token.picture
       }
-
+      console.log(session.user, 'from auth')
       return session
     },
     async jwt({ token, user }) {
@@ -62,3 +80,5 @@ export const authOptions: NextAuthOptions = {
     }
   }
 }
+
+export default NextAuth(authOptions)

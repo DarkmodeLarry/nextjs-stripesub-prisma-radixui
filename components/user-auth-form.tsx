@@ -39,7 +39,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <span className='w-full border-t' />
         </div>
         <div className='relative flex justify-center text-xs uppercase'>
-          <span className='px-2 bg-background text-muted-foreground'>Or continue with</span>
+          <span className='px-2 bg-background text-muted-foreground'>Select Below</span>
         </div>
       </div>
       <button

@@ -50,7 +50,11 @@ export default async function DashboardPage() {
         ) : (
           <EmptyPlaceholder>
             <EmptyPlaceholder.Icon name='post' />
-            <EmptyPlaceholder.Title>No posts created</EmptyPlaceholder.Title>
+            <EmptyPlaceholder.Title>
+              Create and Post messages, training regimes, intervals or whatever you&apos;d like to
+              your team here.{' '}
+            </EmptyPlaceholder.Title>
+            <br className='py-4' />
             <EmptyPlaceholder.Description>
               You don&apos;t have any posts yet. Start creating content.
             </EmptyPlaceholder.Description>

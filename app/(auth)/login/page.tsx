@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { UserAuthForm } from '@/components/user-auth-form'
+import { BsYinYang } from 'react-icons/bs'
 
 export const metadata: Metadata = {
   title: 'Login',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className='container flex flex-col items-center justify-center w-screen h-screen'>
+    <div className='container flex items-center justify-center h-screen'>
       <Link
         href='/'
         className={cn(
@@ -22,17 +23,15 @@ export default function LoginPage() {
         )}
       >
         <>
-          <Icons.chevronLeft className='w-4 h-4 mr-2' />
+          <Icons.chevronLeft className='w-6 h-6 mr-2' />
           Back
         </>
       </Link>
       <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
         <div className='flex flex-col space-y-2 text-center'>
-          <Icons.logo className='w-6 h-6 mx-auto' />
-          <h1 className='text-2xl font-semibold tracking-tight'>Welcome back</h1>
-          <p className='text-sm text-muted-foreground'>
-            Enter your email to sign in to your account
-          </p>
+          <BsYinYang className='w-8 h-8 mx-auto' />
+          <h1 className='text-2xl font-semibold tracking-tight'>Welcome back!</h1>
+          <p className='text-sm text-muted-foreground'>Looks like a good day for a swim</p>
         </div>
         <UserAuthForm />
         <p className='px-8 text-sm text-center text-muted-foreground'>

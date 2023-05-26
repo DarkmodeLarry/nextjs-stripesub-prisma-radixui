@@ -1,7 +1,10 @@
-"use client"
+import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio'
+import { PropsWithChildren } from 'react'
 
-import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
+interface Props extends PropsWithChildren, AspectRatioPrimitive.AspectRatioProps {}
 
-const AspectRatio = AspectRatioPrimitive.Root
+export const Root = (props: Props) => {
+  const { children, ...rest } = props
 
-export { AspectRatio }
+  return <AspectRatioPrimitive.Root {...rest}>{children}</AspectRatioPrimitive.Root>
+}

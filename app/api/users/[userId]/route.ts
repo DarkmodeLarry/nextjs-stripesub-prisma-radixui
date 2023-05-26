@@ -1,20 +1,17 @@
-import { getServerSession } from "next-auth/next"
-import { z } from "zod"
+import { getServerSession } from 'next-auth/next'
+import { z } from 'zod'
 
-import { authOptions } from "@/lib/auth"
-import { db } from "@/lib/db"
-import { userNameSchema } from "@/lib/validations/user"
+import { authOptions } from '@/lib/auth'
+import { db } from '@/lib/db'
+import { userNameSchema } from '@/lib/validations/user'
 
 const routeContextSchema = z.object({
   params: z.object({
-    userId: z.string(),
-  }),
+    userId: z.string()
+  })
 })
 
-export async function PATCH(
-  req: Request,
-  context: z.infer<typeof routeContextSchema>
-) {
+export async function PATCH(req: Request, context: z.infer<typeof routeContextSchema>) {
   try {
     // Validate the route context.
     const { params } = routeContextSchema.parse(context)
@@ -32,11 +29,11 @@ export async function PATCH(
     // Update the user.
     await db.user.update({
       where: {
-        id: session.user.id,
+        id: session.user.id
       },
       data: {
-        name: payload.name,
-      },
+        name: payload.name
+      }
     })
 
     return new Response(null, { status: 200 })

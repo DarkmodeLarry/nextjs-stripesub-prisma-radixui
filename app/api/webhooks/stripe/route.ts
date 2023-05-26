@@ -22,7 +22,6 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     // Retrieve the subscription details from Stripe.
     const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
-    console.log(subscription)
 
     // Update the user stripe into in our database.
     // Since this is the initial subscription, we need to update
@@ -38,7 +37,6 @@ export async function POST(req: Request) {
         stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)
       }
     })
-    console.log(subscription.customer)
   }
 
   if (event.type === 'invoice.payment_succeeded') {

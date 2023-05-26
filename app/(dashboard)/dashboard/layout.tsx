@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-
+import { authOptions } from '@/lib/auth'
 import { dashboardConfig } from '@/config/dashboard'
 import { getCurrentUser } from '@/lib/session'
 import { MainNav } from '@/components/main-nav'
