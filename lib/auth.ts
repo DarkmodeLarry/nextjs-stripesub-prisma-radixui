@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id
         session.user.name = token.name
+        session.user.role = token.role
         session.user.email = token.email
         session.user.image = token.picture
       }
@@ -65,15 +66,14 @@ export const authOptions: NextAuthOptions = {
       })
 
       if (!dbUser) {
-        if (user) {
-          token.id = user?.id
-        }
+        token.id = user?.id
         return token
       }
 
       return {
         id: dbUser.id,
         name: dbUser.name,
+        role: dbUser.role,
         email: dbUser.email,
         picture: dbUser.image
       }

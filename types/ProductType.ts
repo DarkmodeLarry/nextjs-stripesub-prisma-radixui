@@ -1,13 +1,12 @@
-export type ProductType = {
-  name: string
-  unit_amount: number
-  quantity?: number | 1
-  image: string
+export interface ProductType {
+  key: string
   id: string
-  description: string
-  metadata: MetadataType
-}
-
-type MetadataType = {
-  features: string[]
+  name: string
+  unit_amount: number | null
+  image: string
+  currency: string
+  description: string | null
+  metadata: {
+    features: string | string[]
+  }
 }
